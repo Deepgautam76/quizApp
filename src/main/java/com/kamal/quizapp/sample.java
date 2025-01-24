@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class sample {
     @RequestMapping("/")
     public String greet(){
-        return "Hello kamal";
+        return "Hello from quiz app";
     }
 }
