@@ -1,11 +1,12 @@
 # Use a base image with Java
 FROM openjdk:17-jdk-slim
 
-# Set the working directory
-WORKDIR /app
+# Set the working directory in docker container
+RUN mkdir  ./home/app
 
 # Copy the JAR file to the container
-COPY target/quizapp-*.jar app.jar
+COPY target\classes\com\kamal\quizapp-*.jar app.jar
+#target\classes\com\kamal\quizapp
 
 # Expose the port your app uses
 EXPOSE 8080
