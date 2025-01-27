@@ -4,9 +4,8 @@ FROM openjdk:17-jdk-slim
 # Set the working directory in docker container
 RUN mkdir  ./home/app
 
-# Copy the JAR file to the container
+# Copy the JAR file path into container
 COPY target\classes\com\kamal\quizapp-*.jar app.jar
-#target\classes\com\kamal\quizapp
 
 # Expose the port your app uses
 EXPOSE 8080
