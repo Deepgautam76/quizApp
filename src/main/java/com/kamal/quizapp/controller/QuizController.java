@@ -24,9 +24,8 @@ public class QuizController {
 
     @GetMapping("/create")
     public ResponseEntity<?> getQuiz(@RequestParam(required = false) String category,
-                                     @RequestParam(required = false) Long noOfQ,
+                                     @RequestParam(required = false) Long numQ,
                                      @RequestParam(required = false) String title){
-        Quiz quiz=quizService.getQuiz(category,noOfQ,title);
-        return new ResponseEntity<>("It's working perfectly",HttpStatus.OK);
+        return quizService.getQuiz(category,numQ,title);
     }
 }
