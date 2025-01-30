@@ -34,6 +34,4 @@ public class QuestionController {
     public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
         return questionService.getQuestionByCategory(category);
     }
-
-
 }
