@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuizService {
@@ -18,7 +19,7 @@ public class QuizService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    public ResponseEntity<String> getQuiz(String category, Long numQ, String title) {
+    public ResponseEntity<String> createQuiz(String category, Long numQ, String title) {
         List<Question> questions=questionRepository.findRandomQuestionsByCategory(category,numQ);
         Quiz quiz=new Quiz();
         quiz.setTitle(title);
@@ -26,5 +27,10 @@ public class QuizService {
         quizRepository.save(quiz);
 
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<?> getQuizById(Long id) {
+        Optional<Quiz> quiz=quizRepository.findById(id);
+        return new ResponseEntity<>(quiz,HttpStatus.OK);
     }
 }

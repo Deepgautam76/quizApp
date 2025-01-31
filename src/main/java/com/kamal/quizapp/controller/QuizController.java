@@ -16,14 +16,15 @@ public class QuizController {
     private QuizService quizService;
 
     @GetMapping
-    public ResponseEntity<List<Question>> quizQuestion(){
-        return null;
+    public ResponseEntity<?> quizQuiz(@PathVariable Long id){
+        return quizService.getQuizById(id);
     }
 
-    @GetMapping("/create")
-    public ResponseEntity<?> getQuiz(@RequestParam(required = false) String category,
+    @PostMapping("/create")
+    public ResponseEntity<?> createQuiz(@RequestParam(required = false) String category,
                                      @RequestParam(required = false) Long numQ,
                                      @RequestParam(required = false) String title){
-        return quizService.getQuiz(category,numQ,title);
+        return quizService.createQuiz(category,numQ,title);
     }
+
 }
