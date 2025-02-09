@@ -3,6 +3,7 @@ package com.kamal.quizapp.service;
 import com.kamal.quizapp.model.Question;
 import com.kamal.quizapp.model.QuestionWrapper;
 import com.kamal.quizapp.model.Quiz;
+import com.kamal.quizapp.model.Response;
 import com.kamal.quizapp.repository.QuestionRepository;
 import com.kamal.quizapp.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,20 @@ public class QuizService {
         }
 
         return new ResponseEntity<>(questionForUser,HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> calculateResult(Long id, List<Response> responses) {
+        Quiz quiz=quizRepository.findById(id).get();
+        List<Question> questions=quiz.getQuestions();
+        int totalCountRightAns=0;
+        int index=0;
+        /* Here is the checking the right answer */
+        for(Response response:responses){
+            if(response.getResponse().equals(questions.get(index).getRightAnswer())){
+                totalCountRightAns++;
+            }
+            index++;
+        }
+        return new ResponseEntity<>(totalCountRightAns,HttpStatus.OK);
     }
 }
