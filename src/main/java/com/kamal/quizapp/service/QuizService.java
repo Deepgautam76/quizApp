@@ -1,6 +1,7 @@
 package com.kamal.quizapp.service;
 
 import com.kamal.quizapp.model.Question;
+import com.kamal.quizapp.model.QuestionWrapper;
 import com.kamal.quizapp.model.Quiz;
 import com.kamal.quizapp.repository.QuestionRepository;
 import com.kamal.quizapp.repository.QuizRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +30,15 @@ public class QuizService {
 
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
-
-    public ResponseEntity<?> getQuizById(Long id) {
+    public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(Long id) {
         Optional<Quiz> quiz=quizRepository.findById(id);
-        return new ResponseEntity<>(quiz,HttpStatus.OK);
+        List<Question> questionFromDb=quiz.get().getQuestions();
+        List<QuestionWrapper> questionForUser=new ArrayList<>();
+        for(Question q:questionFromDb){
+            QuestionWrapper qw=new QuestionWrapper(q.getId(),q.getQuestionTitle(),q.getOption1(),q.getOption2(),q.getOption3(),q.getOption4());
+            questionForUser.add(qw);
+        }
+
+        return new ResponseEntity<>(questionForUser,HttpStatus.OK);
     }
 }
